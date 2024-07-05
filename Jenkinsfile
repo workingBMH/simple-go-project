@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        Dockerfile true
+    }
     environment {
             GOROOT = "${env.WORKSPACE}/go"
             GOPATH = "${env.WORKSPACE}/gopath"
@@ -11,18 +13,10 @@ pipeline {
                 sh 'git checkout main'
             }
         }
-        stage('Setup Go') {
-            steps {
-                script {
-                    def goVersion = '1.17'
-                    sh "curl -LO https://golang.org/dl/go${goVersion}.darwin-arm64.tar.gz"
-                    sh "tar -C ${env.WORKSPACE} -xzf go${goVersion}.darwin-arm64.tar.gz"
-                    sh "mkdir -p ${GOPATH}"
-                }
-            }
-        }
         stage('test') {
             steps {
+                sh 'pwd'
+                sh ''
                 sh '/bin/bash -c "go build ./..."'
                 sh '/bin/bash -c "go test ./..."'
             }
