@@ -23,8 +23,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'go test ./...'
-                
+                sh '/bin/bash -c "go test ./..."'
             }
         }
         stage('build') {
@@ -34,7 +33,7 @@ pipeline {
                 }
             }
             steps{
-                sh 'go build ./...'
+                sh '/bin/bash -c "go build ./..."'
             }
         }
         stage('push to hub') {
