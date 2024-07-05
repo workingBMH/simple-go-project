@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        any
-    }
+    agent any
     environment {
             GOROOT = "${env.WORKSPACE}/go"
             GOPATH = "${env.WORKSPACE}/gopath"
