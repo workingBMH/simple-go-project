@@ -16,7 +16,7 @@ pipeline {
                 script {
                     def goVersion = '1.17'
                     sh "curl -LO https://golang.org/dl/go${goVersion}.darwin-arm64.tar.gz"
-                    sh "sudo tar -C /usr/local -xzf go${goVersion}.darwin-arm64.tar.gz"
+                    sh "tar -C ${env.WORKSPACE} -xzf go${goVersion}.darwin-arm64.tar.gz"
                     sh "mkdir -p ${GOPATH}"
                 }
             }
