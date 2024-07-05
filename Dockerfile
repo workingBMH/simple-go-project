@@ -1,5 +1,7 @@
-# Start from the official Go image
 FROM golang:1.18
+
+# Install Docker client
+RUN apt-get update && apt-get install -y docker.io
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
