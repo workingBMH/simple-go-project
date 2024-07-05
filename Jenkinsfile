@@ -6,11 +6,13 @@ pipeline {
                 sh 'git checkout main'
             }
         }
-        stage('test and build') {
+        stage('test') {
             steps {
                 sh 'go test ./...'
                 
             }
+        }
+        stage('build') {
             when {
                 expression {
                     expressionBuild.result == null || currentBuild.result == 'SUCCESS'
@@ -19,7 +21,6 @@ pipeline {
             steps{
                 sh 'go build ./...'
             }
-
         }
         stage('push to hub') {
             when {
@@ -37,13 +38,10 @@ pipeline {
             steps { 
                 sh 'docker rmi ne275/simple-go-project-jenkins:jenkinsfile'
                 sh 'docker builder prune'
-            }
-            steps {
                 sh 'ls -al ${env.WORKSPACE}'
                 deleteDir()
                 sh 'ls -al ${env.WORKSPACE}'
             }
-
         }
     }
 }
