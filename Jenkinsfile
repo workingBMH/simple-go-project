@@ -1,11 +1,11 @@
 pipeline {
     agent any
-    stages {
-        environment {
+    environment {
             GOROOT = "${env.WORKSPACE}/go"
             GOPATH = "${env.WORKSPACE}/gopath"
             PATH = "${env.PATH}:${GOROOT}/bin:${GOPATH}/bin"
         }
+    stages {
         stage('checkout') {
             steps {
                 sh 'git checkout main'
