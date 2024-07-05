@@ -34,7 +34,7 @@ pipeline {
 
         }
         stage('clean local images') {
-            steps {
+            steps { 
                 sh 'docker rmi ne275/simple-go-project-jenkins:jenkinsfile'
                 sh 'docker builder prune'
             }
