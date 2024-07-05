@@ -23,17 +23,8 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh '/bin/bash -c "go test ./..."'
-            }
-        }
-        stage('build') {
-            when {
-                expression {
-                    expressionBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
-            steps{
                 sh '/bin/bash -c "go build ./..."'
+                sh '/bin/bash -c "go test ./..."'
             }
         }
         stage('push to hub') {
