@@ -24,7 +24,7 @@ pipeline {
         stage('test') {
             steps {
                 sh 'pwd'
-                sh ''
+                sh 'ls -R'
                 sh '/bin/bash -c "go build ./..."'
                 sh '/bin/bash -c "go test ./..."'
             }
