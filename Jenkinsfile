@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        environment {
+            GOROOT = "${env.WORKSPACE}/go"
+            GOPATH = "${env.WORKSPACE}/gopath"
+            PATH = "${env.PATH}:${GOROOT}/bin:${GOPATH}/bin"
+        }
         stage('checkout') {
             steps {
                 sh 'git checkout main'
@@ -11,7 +16,8 @@ pipeline {
                 script {
                     def goVersion = '1.17'
                     sh "curl -LO https://golang.org/dl/go${goVersion}.linux-amd64.tar.gz"
-                    sh "tar -C /usr/local -xzf go${goVersion}.linux-amd64.tar.gz"
+                    sh "tar -C ${env.WORKSPACE} -xzf go${goVersion}.linux-amd64.tar.gz"
+                    sh "mv ${env.WORKSPACE}/go ${GOROOT}"
                     sh "mkdir -p ${GOPATH}"
                 }
             }
