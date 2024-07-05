@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        dockerfile true
+        any
     }
     environment {
             GOROOT = "${env.WORKSPACE}/go"
@@ -11,6 +11,16 @@ pipeline {
         stage('checkout') {
             steps {
                 sh 'git checkout main'
+            }
+        }
+        stage('Setup Go') {
+            steps {
+                script {
+                    def goVersion = '1.17'
+                    sh "curl -LO https://golang.org/dl/go${goVersion}.linux-arm64.tar.gz"
+                    sh "tar -C ${env.WORKSPACE} -xzf go${goVersion}.linux-arm64.tar.gz"
+                    sh "mkdir -p ${GOPATH}"
+                }
             }
         }
         stage('test') {
